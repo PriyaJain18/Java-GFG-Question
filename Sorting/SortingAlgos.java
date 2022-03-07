@@ -246,6 +246,78 @@ public class SortingAlgos {
         }
 
     }
+    
+    public static int Inversions(int[] a,int[] b){
+        int m = a.length;
+        int n = b.length;
+        int i=0,j=0,count=0;
+        
+        while(i<m && j<n){
+            if(a[i]<=b[j]){
+                i++;
+
+            }else{
+                count = count + (m-i);
+                j++;
+            }
+        }
+        return count;
+        
+    }
+
+
+    //INVERSIONS IN AN ARRAY  : 
+
+
+    public static int countAndMerge(int[] arr,int l,int m,int r){         //3rd case 
+        int n1 = m+1-l;
+        int n2 = r-m;
+
+        int L[] = new int[n1], R[] = new int[n2]; //diving one array into two halves 
+        //assigning data to both subarrays : 
+        for(int t=0;t<n1;t++){ L[t] = arr[l+t]; }
+        for(int t=0;t<n1;t++){ R[t] = arr[m+1+t]; }
+        
+        int count=0,i=0,j=0,k=0;     //note : merging is not necessary after counting bigger no from LHS and smaller from RHS
+        int totalElements = arr.length;
+        int ar[] = new int[totalElements];
+        while(i<n1 && j<n2){
+
+            if(L[i]<=R[j]){
+                ar[k] = L[i];
+                i++;
+            }else{
+                ar[k] = R[j];
+                count += (n1-i);
+                j++;
+            }
+            k++;
+        }
+        while(i<n1){
+            ar[k] = L[i];
+            i++;
+            k++;
+        }
+        while(j<n2){
+            ar[k] = R[j];
+            j++;
+            k++;
+        }
+        return count;
+
+    }
+    public static int InversionCount(int[] arr,int l,int r){
+        int count = 0;
+        while(l < r){
+            int m = l + (r-l)/2;
+            count += InversionCount(arr, l, m);
+            count += InversionCount(arr, m+1, r);
+            count += countAndMerge(arr,l,m,r);
+        }
+        return count;
+        
+    }
+
 
     public static void main(String[] args) {
 
@@ -287,10 +359,20 @@ public class SortingAlgos {
         // o1.sort(arrNew,0,arrNew.length-1);  
         // System.out.println(Arrays.toString(arrNew));
 
-        //COUNTING NO. OF INVERSIONS :
-
-
+        //COUNTING NO. OF INVERSIONS comparing 2 arrays  : (bigger no. in A[] and smaller nos. in B[])
+        // int[] a = { 2, 5,8,11};
+        // int[] b = { 3,6,9,13};
+        // int inv = Inversions(a,b);
+        // System.out.println("no. of Inversions are:"+ inv);
+        // System.out.println();
         
+        //COUNTING NO. OF INVERSIONS IN AN ARRAY :cases: 1) big n small in LHS 2) Both in RHS 3)Big in LHS & small no. in RHS part 
+        int arr[] = { 2,5,11,3,6,9,13,8};
+        int count  = InversionCount(arr, 0, arr.length-1);
+        System.out.println("inversions are: " + count);
+        System.out.println("ahellp");
+       
+       
         // note : for arrays : QuickSort > MergeSort
     }
 

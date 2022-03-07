@@ -1,7 +1,3 @@
- // if(m<2 && n<2){
-        //     if (a[i] == b[j]){
-        //         System.out.println(a[i]);
-        //         return;
-        //     }
-        //     return;
-        // }
+;
+        // int count  = InversionCount(arr, 0, arr.length-1);
+        // System.out.println("inversions are:
