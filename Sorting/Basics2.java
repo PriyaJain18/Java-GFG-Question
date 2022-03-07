@@ -1,6 +1,7 @@
 // package Sorting;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,20 @@ class Point2 implements Comparable<Point2>{
     }
 }
 
+class Point3 {
+    int x,y;
+    Point3(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
+   
+}
+class MyListComp implements Comparator<Point3> {
+    @Override
+    public int compare(Point3 o1, Point3 o2) {
+        return o1.y - o2.y;      //SORTING accor to Y coordinate in Ascending order 
+    }
+}
 
 
 public class Basics2 {
@@ -37,24 +52,36 @@ public class Basics2 {
         System.out.println(l2);
 
         //Customized list : 
+        
+        //M1 : using comparable interface 
         List<Point2> l3 = new ArrayList<>();
         l3.add(new Point2(10,20));
         l3.add(new Point2(30,80));        
         l3.add(new Point2(20,10));
 
-        Collections.sort(l3);
-        for (int i = 0; i < l3.size(); i++) {
-            for (int j = 0; j < i.length; j++) {
-                System.out.print(i[j]);
-            }
-            
+        // Collections.sort(l3);           //setted accor to 'x' in ascending order 
+        Collections.sort(l3,Collections.reverseOrder());  //setted accor to 'x' in decending order 
+        System.out.println("CUSTOMIZED L3 : ");
+        for (Point2 pt : l3) {
+            System.out.println(pt.x + " "+ pt.y);
         }
-        //////////////////
-      
 
-        // Collections.sort(l3,Collections.reverseOrder());
-        // System.out.println(l3);  //descending order
+        // M2 : using our custom  comparator  :
+
+        List<Point3> l4 = new ArrayList<>();
+        l4.add(new Point3(10,20));
+        l4.add(new Point3(30,80));        
+        l4.add(new Point3(20,10));
+        Collections.sort(l4,new MyListComp());       //setted accor to 'y' in ascending order 
+        System.out.println("CUTOMIZED L4: ");
+        for (Point3 pt : l4) {
+            System.out.println(pt.x + " "+ pt.y);
+        }
+        
     } 
 
 }
+
+//STABLE SORTING ALGOS  :Bubble ,insertion ,merge
+//UNSTABLE SORTING ALGOS :Selection , quick, heap sort 
 

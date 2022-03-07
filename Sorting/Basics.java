@@ -66,5 +66,10 @@ public class Basics {
     }
 }
 
-//Arrays.sort -> for primitives  ->  cannot be reversed using comparator 
-//Arrays.sort -> for non-primitives -> uses comparators (Comparator class or extends comparable )
+//Arrays.sort -> for primitives -> cannot be reversed using comparator ;Use Collections.reverseOrder() instead but with wrapper class-datatypes
+           // -> for non-primitives -> uses 'Comparator class' or 'extends comparable'  
+//Collections.sort -> uses 'Comparator class' or 'extends comparable'
+
+//NOTE : 
+//Arrays.sort -> for array or part of an array 
+//Collections.sort -> for whole collection Not it's subpart
