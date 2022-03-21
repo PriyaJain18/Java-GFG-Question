@@ -61,7 +61,7 @@ class MergeSort{
 
 } 
 
-public class SortingAlgos {
+public class Sorting_Algos_and_Operations_On_Arrays {
 
     public static int[] BubbleSort(int[] arr) { // largest element at end/RHS
         int n = arr.length;
