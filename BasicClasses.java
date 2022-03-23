@@ -76,3 +76,10 @@ public class BasicClasses {
     }
     
 }
+
+a,b,c 
+
+//SUB STRING / SUBARRAY -> a, b,c , ab,bc,abc -> (n*(n+1)) / 2
+
+// SUB SEQUENCE/SUB-SETS-> _ _ _ , a , b, c ,ab_, _bc,a_c ,abc
+
