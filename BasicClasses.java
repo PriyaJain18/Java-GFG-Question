@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import javax.sql.rowset.spi.SyncResolver;
+
 public class BasicClasses {
 
     //SWAPPING 2 VALUES :
@@ -65,19 +67,15 @@ public class BasicClasses {
         int a1 = 10;
         Integer a2 = 20;
         String a3 = "str";
-
         System.out.println(((Object)a1).getClass().getSimpleName());
         System.out.println(a2.getClass());
         System.out.println(a3.getClass().getSimpleName());
         System.out.println(list1.getClass());
         System.out.println(list2.getClass());
-
-
     }
     
 }
 
-a,b,c 
 
 //SUB STRING / SUBARRAY -> a, b,c , ab,bc,abc -> (n*(n+1)) / 2
 
