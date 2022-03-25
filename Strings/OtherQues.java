@@ -35,6 +35,7 @@ public class OtherQues {
             if(charArr[end] == ' '){
                 
                [end-1,start]//////////////////
+               //////////////////CONTINUE FROM HERE 
             }
 
         }
