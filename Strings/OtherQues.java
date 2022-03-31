@@ -29,29 +29,26 @@ public class OtherQues {
         }
         System.out.println(revf);
     }
-    private static void reverseWord(char[] charArr){
-        int start = 0;
-        for(int end=0;end<charArr.length;end++){
-            if(charArr[end] == ' '){
-                
-               [end-1,start]//////////////////
-               //////////////////CONTINUE FROM HERE 
-            }
+    private static void reverseStr3(String str){ //REVERSE INDIVIDUAL WORDS AND THEN REVERSE WHOLE SENTENCE/STRING -> Priya here -> ayirP ereh -> here Priya 
 
+        String wordArr[] = str.split(" ");
+        StringBuilder revStr = new StringBuilder();
+        
+        for(String w : wordArr){
+            StringBuilder strb = new StringBuilder(w);
+            strb.reverse();
+            revStr.append(strb.toString()+" ");  //after last word " "
         }
 
-    }
-    private static void reverseStr3(String str){
-
-        char[] charArr = str.toCharArray();
-        //REVERSE INDIVIDUAL WORDS : 
-        reverseWord();
-        
+        System.out.println(revStr);
         
         //REVERSE WHOLE STRING : 
         
-        for(int i=charArr.length;i>=0;i--){
-            System.out.print(charArr[i]);
+        for(int i=revStr.length()-1;i>=0;i--){
+            if((i==revStr.length()-1) && (revStr.charAt(i)==' ')){    //to remove space before first word [as the unreversed one had space after last word]
+                continue;
+            }
+            System.out.print(revStr.charAt(i));
         }
     }
     public static void main(String[] args) {
@@ -61,9 +58,10 @@ public class OtherQues {
         String str = "My name is Priya";
         String revStr = reverseStr1(str);
         System.out.println(revStr);
-
         reverseStr2(str);
         reverseStr3(str);
+        //try using 2-pointer algo + swap 
     }
     
 }
+//stb.reverse(); -> reverse function of StringBuilder gives mirror image of original String 
