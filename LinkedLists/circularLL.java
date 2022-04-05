@@ -1,10 +1,22 @@
 
+//circular singly LL: 
 class Node{
     int data;
     Node next;
     Node(int x){
         data = x;
         next = null;
+    }
+}
+//circular doubly LL: 
+class dNode{
+    int data;
+    dNode next;
+    dNode prev;
+    dNode(int x){
+        data = x;
+        next = null;
+        prev= null;
     }
 }
 
@@ -14,7 +26,7 @@ public class circularLL {
             System.out.println("empty Circular LL");
             return;
         }
-        if(head.next == null){            //FOR SLIGHT OPTIMIZATION , But is OPTIONAL as below code can also HANDLE THIS CASE  
+        if(head.next == head){            //FOR SLIGHT OPTIMIZATION , But is OPTIONAL as below code can also HANDLE THIS CASE  
             System.out.println(head.data);
             return;
         }
@@ -119,7 +131,7 @@ public class circularLL {
     }
     
     private static Node deleteStart(Node head){
-        if(head == null || head.next == null){
+        if(head == null || head.next == head){     //2nd condition as LL is circular 
             return null;
         }else{
             Node current = head;
@@ -135,7 +147,7 @@ public class circularLL {
     }
     
     private static Node deleteStart2(Node head){
-        if(head == null || head.next == null){    //CLL contains 0 or 1 Element
+        if(head == null || head.next == head){    //CLL contains 0 or 1 Element
             return null;
         }else{
             // 10.h  20.newHeadRequired  30 40 
@@ -149,7 +161,7 @@ public class circularLL {
     }
 
     private static Node deleteEnd(Node head){
-        if(head == null || head.next == null){
+        if(head == null || head.next == head){     //2nd condition as CLL
             return null;
         }else{
             Node current = head.next;
@@ -163,7 +175,7 @@ public class circularLL {
     }
 
     private static Node deleteEnd2(Node head){
-        if(head == null || head.next == null){
+        if(head == null || head.next == head){
             return null;
         }else{
             // 10.h 20 30 [40] -> 10.h 20 
@@ -173,6 +185,79 @@ public class circularLL {
         }
     }
    
+    private static Node deleteKpos(Node head,int k){
+        //assumption => k<=SizeOfCLL
+
+        if(head == null){
+            System.out.println("cannot delete from Empty Circular LL");
+            return null;
+        }
+        if(k == 1){    //remove head
+            return deleteStart(head);         //cannot remove head directly by moving it to next node, as it is circular LL
+        } //else :
+        Node current = head;
+        for(int i=0;i<k-2;i++){    //example:  1.initialCurrent 2.c 3.k ......  => if k=3 [pos] , current should move 1 time (ahead) 
+            current = current.next;
+        }
+        // CLL NOW: 1 2 3 4 ... k-1.c k.pos k+1 k+2 .....
+        current.next = current.next.next;                     //k-th element handled by Java memory deallocation
+        return head;
+    }
+
+
+    private static void traversalDCLL(dNode head){
+        if(head == null){
+            System.out.println("Empty DCLL. "); 
+            return;
+        }
+        
+        
+        if(head.next == head){
+            System.out.println(head.data);
+            return;
+        }
+        dNode current = head;
+        while(current.next != head){
+            System.out.print(current.data+" ");
+            current = current.next;
+        }
+        System.out.print(current.data);  //returning last element before going to head again
+        return;
+    }
+
+    private static dNode insertStartDCLL(dNode head,int data){
+        dNode temp = new dNode(data);
+        if(head == null){
+            temp.next = temp;
+            temp.prev = temp;
+            return temp;
+        }
+        head.prev.next = temp;    
+        temp.prev = head.prev;
+        temp.next = head;
+        head.prev = temp;
+        // if(head.next == head && head.prev==head) I.e only 1 element present earlier, ABOVE CODE WOULD GIVE  : t <- h <=> t -> h 
+       
+        return temp;
+        // 10.temp.newHead <=> 20.earlierHead <=> 30 <=> 40 <=> 10
+    } 
+
+    private static dNode insertEndDCLL(dNode head,int data){
+        dNode temp = new dNode(data);
+        if(head == null){
+            temp.next = temp;
+            temp.prev = temp;
+            return temp;
+        }
+        head.prev.next = temp;
+        temp.prev = head.prev;
+        head.prev = temp;
+        temp.next = head;
+        return head;              //head remains same as temp inserted at end  
+        // normal case output: 10 20 30 40 <=> [50]temp <=> 10.h 20
+        // if(head.next==head && head.prev==head)  =>Above code will give output :  temp <- 10.head <=> temp -> head
+    }                
+
     public static void main(String[] args) {
 
         //Circular Singly LinkedList : 
@@ -180,7 +265,9 @@ public class circularLL {
         Node head = new Node(10);
         head.next = new Node(20);
         head.next.next = new Node(30);
-        head.next.next.next = head;
+        head.next.next.next = new Node(40);
+        head.next.next.next.next = head;
+        // head.next = head;            //if we need to have only 1 element in CLL
 
         // traversalCLL(head);
         // traversalCLL2(head);
@@ -202,14 +289,48 @@ public class circularLL {
         // System.out.println(head.data);
 
         // head = deleteEnd(head);
-        head = deleteEnd2(head);             ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@CONTINUE 
-        traversalCLL(head);
-        System.out.println(head.data);
+        // head = deleteEnd2(head);             ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@CONTINUE 
+        // traversalCLL(head);
+        // System.out.println(head.data);
 
-        head = deleteKpos(head,3);        //delete k-th position element 
-        traversalCLL(head);
-        System.out.println(head.data);
+        //delete k-th position element  : 
+        // head = deleteKpos(head,1);      
+        // traversalCLL(head);
+        // System.out.println(head.data);
+
+        //CIRCULAR DOUBLY LINKEDLIST : 
+
+        dNode h = new dNode(10);       //h is head here 
+        /* //when DCLL Contains only 1 node : 
+        h.next = h;
+        h.prev = h;
+        */
+        dNode n1 = new dNode(20);
+        dNode n2 = new dNode(30);
+        dNode n3 = new dNode(40);
+
+        h.next = n1;
+        n1.next = n2;
+        n2.next = n3;       
+        n3.next = h;
+
+        h.prev = n3;
+        n1.prev = h;
+        n2.prev = n1;
+        n3.prev = n2;
         
+
+        // h = insertStartDCLL(h,5);
+        // h = insertStartDCLL(h,2);
+        // traversalDCLL(h);
+        // System.out.println(h.data);
+       
+        // h = insertEndDCLL(h,50);
+        // h = insertEndDCLL(h,60);
+        // traversalDCLL(h);
+        // System.out.println(h.data);
+
+          // System.out.println();
 
     }
     
